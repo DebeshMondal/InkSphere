@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const blogsRouter = require('./routes/blogs');
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get('/', (req, res) => {
   res.send('InkSphere API is running');
 });
+
+app.use('/api/blogs', blogsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
