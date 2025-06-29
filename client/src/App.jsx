@@ -86,9 +86,9 @@ function App() {
               </button>
             </>
           )}
-        </div>
+      </div>
       </SignedOut>
-    </div>
+      </div>
   );
 }
 
