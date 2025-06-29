@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&display=swap');
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #FAF9F6;
+  min-height: 100vh;
+  color: #1a202c;
+}
+
+.headline-serif {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.editorial-btn {
+  background: #191919;
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 600;
+  padding: 0.75rem 2.5rem;
+  font-size: 1.125rem;
+  transition: background 0.2s;
+}
+.editorial-btn:hover {
+  background: #333;
+}
+
+/* Remove glassmorphism and gradients for a flat, editorial look */
+.glass, .shadow-glass, .bg-gradient-to-r, .bg-gradient-to-br {
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+}
+
+/* Smooth transitions for cards and buttons */
+.transition-base {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modern shadow */
+.shadow-glass {
+  box-shadow: 0 4px 24px 0 rgba(80, 112, 255, 0.08), 0 1.5px 4px 0 rgba(31, 38, 135, 0.04);
+}

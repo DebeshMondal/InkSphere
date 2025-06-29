@@ -1,6 +1,6 @@
 const BlogCard = ({ blog }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <div className="glass shadow-glass transition-base transform hover:scale-105 hover:shadow-xl cursor-pointer overflow-hidden">
       {blog.image && (
         <div className="h-48 bg-gray-200">
           <img 
@@ -13,7 +13,7 @@ const BlogCard = ({ blog }) => {
       
       <div className="p-6">
         <div className="flex items-center mb-2">
-          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
+          <span className="inline-block bg-gradient-to-r from-blue-400 to-indigo-400 text-white text-xs px-2 py-1 rounded-full font-medium shadow transition-base">
             {blog.category}
           </span>
           <span className="text-gray-500 text-sm ml-auto">
@@ -31,7 +31,9 @@ const BlogCard = ({ blog }) => {
         
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full mr-3 flex items-center justify-center text-white font-bold text-lg shadow">
+              {blog.author[0]}
+            </div>
             <div>
               <p className="text-sm font-medium text-gray-900">{blog.author}</p>
               <p className="text-xs text-gray-500">Author</p>

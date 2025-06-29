@@ -1,8 +1,10 @@
-import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
+import { SignedIn, UserButton, useUser } from '@clerk/clerk-react'
 
 const Navbar = () => {
+  const { user } = useUser();
+
   return (
-    <nav className="bg-white shadow-sm border-b">
+    <nav className="bg-white shadow-sm border-b sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -30,11 +32,28 @@ const Navbar = () => {
           
           <div className="flex items-center space-x-4">
             <SignedIn>
-              <UserButton afterSignOutUrl="/" />
+              <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-700 transition">
+                + Create Blog
+              </button>
+              <div className="relative group ml-4">
+                <div className="flex items-center cursor-pointer select-none">
+                  {user?.imageUrl && (
+                    <img
+                      src={user.imageUrl}
+                      alt={user.fullName}
+                      className="w-8 h-8 rounded-full border-2 border-blue-600 object-cover"
+                    />
+                  )}
+                  <span className="ml-2 font-medium text-gray-900 hidden sm:block">
+                    {user?.firstName}
+                  </span>
+                </div>
+                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-20">
+                  <a href="#" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                  <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonPopoverCard: 'shadow-none border-none' } }} />
+                </div>
+              </div>
             </SignedIn>
-            <SignedOut>
-              <SignIn mode="modal" />
-            </SignedOut>
           </div>
         </div>
       </div>
