@@ -1,7 +1,7 @@
 import { useUser } from '@clerk/clerk-react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import BlogCard from '../components/BlogCard';
-import mockBlogs from '../mockBlogs';
 
 const categories = [
   'Writing',
@@ -15,10 +15,32 @@ const categories = [
 
 const Home = () => {
   const { user, isLoaded } = useUser();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   let displayName = '';
   if (isLoaded && user) {
     displayName = user.firstName || user.fullName || user.username || user.primaryEmailAddress?.emailAddress || '';
   }
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const res = await fetch('http://localhost:5000/api/blogs');
+        if (!res.ok) throw new Error('Failed to fetch blogs');
+        const data = await res.json();
+        setBlogs(data);
+      } catch (err) {
+        setError(err.message || 'Something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
@@ -46,11 +68,19 @@ const Home = () => {
       </div>
 
       {/* Blog Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {mockBlogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="text-center py-10 text-lg text-gray-500">Loading blogs...</div>
+      ) : error ? (
+        <div className="text-center py-10 text-red-600 font-semibold">{error}</div>
+      ) : blogs.length === 0 ? (
+        <div className="text-center py-10 text-gray-500">No blogs found. Be the first to create one!</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogs.map((blog) => (
+            <BlogCard key={blog._id} blog={blog} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
