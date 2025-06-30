@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "framer-motion": "^12.19.2",
-    "react-quill": "^2.0.0"
+    "framer-motion": "^12.19.2"
   }
 }
