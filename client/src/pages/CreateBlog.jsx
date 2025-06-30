@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { motion } from 'framer-motion';
 
 const categories = [
@@ -73,7 +71,7 @@ const CreateBlog = () => {
         </div>
         <div>
           <label className="block font-semibold mb-1">Content</label>
-          <ReactQuill theme="snow" value={content} onChange={setContent} className="bg-white rounded-lg" />
+          <textarea className="w-full border rounded-lg px-3 py-2 min-h-[120px]" value={content} onChange={e => setContent(e.target.value)} required />
         </div>
         {error && <div className="text-red-600 font-semibold">{error}</div>}
         {success && <div className="text-green-600 font-semibold">Blog created successfully!</div>}
