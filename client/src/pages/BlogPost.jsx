@@ -1,8 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
 
 const BlogPost = () => {
   const { id } = useParams();
+  const { user } = useUser();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -29,6 +31,8 @@ const BlogPost = () => {
   if (error) return <div className="text-center py-10 text-red-600 font-semibold">{error}</div>;
   if (!blog) return null;
 
+  const isAuthor = user && (user.fullName === blog.author || user.username === blog.author || user.primaryEmailAddress?.emailAddress === blog.author);
+
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">
       <Link to="/" className="text-blue-600 hover:underline mb-4 inline-block">← Back to Home</Link>
@@ -39,6 +43,9 @@ const BlogPost = () => {
         <span>{new Date(blog.createdAt).toLocaleDateString()}</span>
         <span>•</span>
         <span className="bg-gray-200 rounded-full px-3 py-1 text-xs font-medium">{blog.category}</span>
+        {isAuthor && (
+          <Link to={`/edit/${blog._id}`} className="ml-auto editorial-btn py-1 px-6 text-sm">Edit</Link>
+        )}
       </div>
       {blog.image && (
         <img src={blog.image} alt={blog.title} className="w-full max-h-80 object-cover rounded-xl mb-6" />

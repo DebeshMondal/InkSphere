@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import BlogCard from './components/BlogCard';
 import mockBlogs from './mockBlogs';
 import BlogPost from './pages/BlogPost';
+import EditBlog from './pages/EditBlog';
 
 function Navbar() {
   const { user } = useUser();
@@ -103,6 +104,7 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/edit/:id" element={<EditBlog />} />
             </Routes>
           </motion.div>
         </AnimatePresence>
