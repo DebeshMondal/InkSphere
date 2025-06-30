@@ -4,9 +4,30 @@
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #FAF9F6;
+  background: linear-gradient(120deg, #e0e7ff 0%, #c7d2fe 50%, #f0fdfa 100%);
   min-height: 100vh;
   color: #1a202c;
+  position: relative;
+}
+
+.hero-bg {
+  background: linear-gradient(120deg, #6366f1 0%, #06b6d4 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg svg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  height: 200px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.accent {
+  color: #6366f1;
 }
 
 .headline-serif {
@@ -16,16 +37,18 @@ body {
 }
 
 .editorial-btn {
-  background: #191919;
+  background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%);
   color: #fff;
   border-radius: 9999px;
   font-weight: 600;
   padding: 0.75rem 2.5rem;
   font-size: 1.125rem;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 24px 0 rgba(80, 112, 255, 0.08);
 }
 .editorial-btn:hover {
-  background: #333;
+  background: linear-gradient(90deg, #06b6d4 0%, #6366f1 100%);
+  transform: translateY(-2px) scale(1.04);
 }
 
 /* Remove glassmorphism and gradients for a flat, editorial look */
