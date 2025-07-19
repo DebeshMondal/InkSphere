@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation, NavLink } from 'react-router-dom';
-import { SignedIn, SignedOut, SignIn, SignUp, useUser } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignIn, SignUp, useUser, UserButton } from '@clerk/clerk-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './pages/Home';
 import CreateBlog from './pages/CreateBlog';
@@ -30,7 +30,7 @@ function Navbar() {
             <NavLink to="/admin" className={({isActive}) => isActive ? 'font-semibold text-black' : 'text-gray-700 hover:text-black'}>Admin</NavLink>
             <NavLink to="/profile" className={({isActive}) => isActive ? 'font-semibold text-black' : 'text-gray-700 hover:text-black'}>Profile</NavLink>
             {user && (
-              <img src={user.imageUrl} alt={user.fullName} className="w-10 h-10 rounded-full ml-2 border object-cover" />
+              <UserButton afterSignOutUrl="/" />
             )}
           </div>
         </div>
