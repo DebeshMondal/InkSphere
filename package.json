@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "framer-motion": "^12.19.2"
+    "framer-motion": "^12.19.2",
+    "quill-emoji": "^0.2.0",
+    "react-quill": "^2.0.0"
   }
 }

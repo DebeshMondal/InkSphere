@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import BlogCard from '../components/BlogCard';
 
 const categories = [
+  'All',
   'Writing',
   'Productivity',
   'Lifestyle',
@@ -18,6 +19,7 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   let displayName = '';
   if (isLoaded && user) {
@@ -42,6 +44,10 @@ const Home = () => {
     fetchBlogs();
   }, []);
 
+  const filteredBlogs = selectedCategory === 'All'
+    ? blogs
+    : blogs.filter(blog => blog.category === selectedCategory);
+
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
       {/* Greeting and CTA */}
@@ -60,7 +66,9 @@ const Home = () => {
         {categories.map((cat) => (
           <button
             key={cat}
-            className="px-4 py-1 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-black hover:text-white transition-base text-sm font-medium"
+            className={`px-4 py-1 rounded-full border border-gray-300 text-gray-700 text-sm font-medium transition-base ${selectedCategory === cat ? 'bg-black text-white border-black' : 'bg-white hover:bg-black hover:text-white'}`}
+            onClick={() => setSelectedCategory(cat)}
+            aria-pressed={selectedCategory === cat}
           >
             {cat}
           </button>
@@ -72,11 +80,11 @@ const Home = () => {
         <div className="text-center py-10 text-lg text-gray-500">Loading blogs...</div>
       ) : error ? (
         <div className="text-center py-10 text-red-600 font-semibold">{error}</div>
-      ) : blogs.length === 0 ? (
+      ) : filteredBlogs.length === 0 ? (
         <div className="text-center py-10 text-gray-500">No blogs found. Be the first to create one!</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.map((blog) => (
+          {filteredBlogs.map((blog) => (
             <BlogCard key={blog._id} blog={blog} />
           ))}
         </div>
